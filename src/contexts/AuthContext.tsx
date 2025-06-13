@@ -73,7 +73,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const foundUser = MOCK_USERS.find((u) => u.email === email && u.password === password)
 
     if (foundUser) {
-      const { password, ...userWithoutPassword } = foundUser
+      const { ...userWithoutPassword } = foundUser
       setUser(userWithoutPassword)
       localStorage.setItem("antonelly_user", JSON.stringify(userWithoutPassword))
       setIsLoading(false)

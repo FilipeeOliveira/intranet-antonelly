@@ -7,6 +7,10 @@ import { usePermissions } from "@/hooks/usePermissions"
 import LoginForm from "@/components/LoginForm"
 import ProtectedRoute from "@/components/ProtectedRoute"
 import RoleBadge from "@/components/RoleBadge"
+import CreateUserModal from "@/components/modals/CreateUserModal"
+import CreateProcedureModal from "@/components/modals/CreateProcedureModal"
+import CreateNotificationModal from "@/components/modals/CreateNotificationModal"
+import CreateAlertModal from "@/components/modals/CreateAlertModal"
 
 type Section = "dashboard" | "notificacoes" | "avisos" | "procedimentos" | "cadastros" | "usuarios"
 
@@ -251,9 +255,7 @@ export default function IntranetPage() {
                         <h4 className="font-semibold text-amber-200">Painel de Gerenciamento</h4>
                         <p className="text-sm text-amber-300/80">Você pode criar e gerenciar notificações</p>
                       </div>
-                      <button className="bg-amber-500 text-gray-900 px-4 py-2 rounded-lg font-medium hover:bg-amber-400 transition-colors">
-                        Nova Notificação
-                      </button>
+                      <CreateNotificationModal />
                     </div>
                   </div>
                 </ProtectedRoute>
@@ -307,9 +309,7 @@ export default function IntranetPage() {
                       <h4 className="font-semibold text-blue-200">Gerenciar Avisos</h4>
                       <p className="text-sm text-blue-300/80">Você pode criar e editar avisos da empresa</p>
                     </div>
-                    <button className="bg-blue-500 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-400 transition-colors">
-                      Novo Aviso
-                    </button>
+                    <CreateAlertModal />
                   </div>
                 </div>
               )}
@@ -345,14 +345,11 @@ export default function IntranetPage() {
                       <h4 className="font-semibold text-green-200">Gerenciar Procedimentos</h4>
                       <p className="text-sm text-green-300/80">Você pode adicionar novos procedimentos</p>
                     </div>
-                    <button className="bg-green-500 text-white px-4 py-2 rounded-lg font-medium hover:bg-green-400 transition-colors">
-                      Novo Procedimento
-                    </button>
+                    <CreateProcedureModal />
                   </div>
                 </div>
               )}
 
-              {/* Accordion content remains the same */}
               <div className="bg-gray-800 rounded-xl border border-gray-700">
                 <button
                   onClick={() => toggleAccordion("seguranca")}
@@ -391,42 +388,113 @@ export default function IntranetPage() {
                 </div>
               }
             >
-              <div className="space-y-8">
-                {/* Form to create a new company notice */}
-                <div className="bg-gray-800 p-6 rounded-xl border border-gray-700">
-                  <h3 className="text-xl font-semibold text-white mb-4">Cadastrar Novo Aviso</h3>
-                  <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-                    <div>
-                      <label htmlFor="aviso-titulo" className="block text-sm font-medium text-gray-300 mb-1">
-                        Título do Aviso
-                      </label>
-                      <input
-                        type="text"
-                        id="aviso-titulo"
-                        className="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-amber-400 focus:border-amber-400 transition-colors"
-                        placeholder="Digite o título do aviso"
-                      />
+              <div className="max-w-6xl mx-auto">
+                {/* Grid de Cards de Cadastro */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Card Avisos da Empresa */}
+                  <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-8 hover:bg-gray-800/70 transition-all duration-300">
+                    <div className="flex items-start space-x-4">
+                      <div className="p-3 bg-blue-500/20 rounded-xl">
+                        <Info className="h-8 w-8 text-blue-400" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-xl font-semibold text-white mb-3">Avisos da Empresa</h3>
+                        <p className="text-gray-400 text-sm mb-6 leading-relaxed">
+                          Crie e gerencie avisos importantes para todos os funcionários.
+                        </p>
+                        <CreateAlertModal />
+                      </div>
                     </div>
-                    <div>
-                      <label htmlFor="aviso-conteudo" className="block text-sm font-medium text-gray-300 mb-1">
-                        Conteúdo do Aviso
-                      </label>
-                      <textarea
-                        id="aviso-conteudo"
-                        rows={4}
-                        className="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-amber-400 focus:border-amber-400 transition-colors resize-vertical"
-                        placeholder="Digite o conteúdo do aviso"
-                      />
+                  </div>
+
+                  {/* Card Usuários do Sistema */}
+                  {isAdmin() && (
+                    <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-8 hover:bg-gray-800/70 transition-all duration-300">
+                      <div className="flex items-start space-x-4">
+                        <div className="p-3 bg-green-500/20 rounded-xl">
+                          <Users className="h-8 w-8 text-green-400" />
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="text-xl font-semibold text-white mb-3">Usuários do Sistema</h3>
+                          <p className="text-gray-400 text-sm mb-6 leading-relaxed">
+                            Cadastre novos usuários e gerencie permissões de acesso.
+                          </p>
+                          <CreateUserModal />
+                        </div>
+                      </div>
                     </div>
-                    <div className="text-right">
-                      <button
-                        type="submit"
-                        className="bg-amber-400 text-gray-800 font-bold py-2 px-6 rounded-lg hover:bg-amber-500 transition-colors focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-gray-800"
-                      >
-                        Salvar Aviso
-                      </button>
+                  )}
+
+                  {/* Card Notificações Urgentes */}
+                  {isManager() && (
+                    <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-8 hover:bg-gray-800/70 transition-all duration-300">
+                      <div className="flex items-start space-x-4">
+                        <div className="p-3 bg-red-500/20 rounded-xl">
+                          <Bell className="h-8 w-8 text-red-400" />
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="text-xl font-semibold text-white mb-3">Notificações Urgentes</h3>
+                          <p className="text-gray-400 text-sm mb-6 leading-relaxed">
+                            Envie notificações importantes para todos os usuários.
+                          </p>
+                          <CreateNotificationModal />
+                        </div>
+                      </div>
                     </div>
-                  </form>
+                  )}
+
+                  {/* Card Documentos PDF */}
+                  {canCreate("procedures") && (
+                    <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-8 hover:bg-gray-800/70 transition-all duration-300">
+                      <div className="flex items-start space-x-4">
+                        <div className="p-3 bg-purple-500/20 rounded-xl">
+                          <FileText className="h-8 w-8 text-purple-400" />
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="text-xl font-semibold text-white mb-3">Documentos PDF</h3>
+                          <p className="text-gray-400 text-sm mb-6 leading-relaxed">
+                            Faça upload de procedimentos e documentos em PDF.
+                          </p>
+                          <CreateProcedureModal />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Seção de Estatísticas */}
+                <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="bg-gradient-to-br from-blue-500/10 to-blue-600/10 border border-blue-500/20 rounded-xl p-6">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-blue-400 text-sm font-medium">Total de Avisos</p>
+                        <p className="text-2xl font-bold text-white mt-1">12</p>
+                      </div>
+                      <Info className="h-8 w-8 text-blue-400/60" />
+                    </div>
+                  </div>
+
+                  {isAdmin() && (
+                    <div className="bg-gradient-to-br from-green-500/10 to-green-600/10 border border-green-500/20 rounded-xl p-6">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-green-400 text-sm font-medium">Usuários Ativos</p>
+                          <p className="text-2xl font-bold text-white mt-1">24</p>
+                        </div>
+                        <Users className="h-8 w-8 text-green-400/60" />
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="bg-gradient-to-br from-purple-500/10 to-purple-600/10 border border-purple-500/20 rounded-xl p-6">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-purple-400 text-sm font-medium">Procedimentos</p>
+                        <p className="text-2xl font-bold text-white mt-1">8</p>
+                      </div>
+                      <FileText className="h-8 w-8 text-purple-400/60" />
+                    </div>
+                  </div>
                 </div>
               </div>
             </ProtectedRoute>
@@ -448,11 +516,7 @@ export default function IntranetPage() {
               <div className="space-y-6">
                 <div className="flex justify-between items-center">
                   <h3 className="text-xl font-semibold text-white">Gerenciar Usuários</h3>
-                  {canCreate("users") && (
-                    <button className="bg-amber-400 text-gray-800 font-bold py-2 px-4 rounded-lg hover:bg-amber-500 transition-colors">
-                      Novo Usuário
-                    </button>
-                  )}
+                  {canCreate("users") && <CreateUserModal />}
                 </div>
 
                 <div className="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden">

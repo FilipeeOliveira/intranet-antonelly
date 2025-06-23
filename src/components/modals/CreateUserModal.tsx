@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
-import { Eye, EyeOff, Plus } from "lucide-react"
+import { Eye, EyeOff, Plus, UserPlus } from "lucide-react"
 import { useAuth } from "@/contexts/AuthContext"
 import type { UserRole } from "@/types/auth"
 
@@ -131,17 +131,21 @@ export default function CreateUserModal({ onUserCreated }: CreateUserModalProps)
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <button className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center space-x-2">
+        <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 flex items-center space-x-2">
           <Plus className="h-5 w-5" />
           <span>Novo Usuário</span>
         </button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto bg-gray-800 border-gray-700">
+      <DialogContent className="sm:max-w-[800px] max-h-[90vh] overflow-y-auto bg-gray-800 border-gray-700">
         <DialogHeader>
-          <DialogTitle className="text-white">Criar Novo Usuário</DialogTitle>
+          <DialogTitle className="text-white flex items-center">
+            <UserPlus className="h-5 w-5 mr-2 text-blue-400" />
+            Criar Novo Usuário
+          </DialogTitle>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Name and Email */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="name" className="text-gray-300">
@@ -173,6 +177,7 @@ export default function CreateUserModal({ onUserCreated }: CreateUserModalProps)
             </div>
           </div>
 
+          {/* Password and Confirm Password */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="password" className="text-gray-300">
@@ -214,6 +219,7 @@ export default function CreateUserModal({ onUserCreated }: CreateUserModalProps)
             </div>
           </div>
 
+          {/* Role and Department */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="role" className="text-gray-300">
@@ -254,6 +260,7 @@ export default function CreateUserModal({ onUserCreated }: CreateUserModalProps)
             </div>
           </div>
 
+          {/* Phone */}
           <div className="space-y-2">
             <Label htmlFor="phone" className="text-gray-300">
               Telefone
@@ -267,6 +274,7 @@ export default function CreateUserModal({ onUserCreated }: CreateUserModalProps)
             />
           </div>
 
+          {/* Notes */}
           <div className="space-y-2">
             <Label htmlFor="notes" className="text-gray-300">
               Observações
@@ -290,7 +298,7 @@ export default function CreateUserModal({ onUserCreated }: CreateUserModalProps)
             >
               Cancelar
             </Button>
-            <Button type="submit" disabled={isLoading} className="bg-amber-500 hover:bg-amber-600 text-gray-900">
+            <Button type="submit" disabled={isLoading} className="bg-blue-600 hover:bg-blue-700 text-white">
               {isLoading ? "Criando..." : "Criar Usuário"}
             </Button>
           </div>

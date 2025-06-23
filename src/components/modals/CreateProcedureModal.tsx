@@ -154,17 +154,21 @@ export default function CreateProcedureModal({ onProcedureCreated }: CreateProce
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <button className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center space-x-2">
+        <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 flex items-center space-x-2">
           <Upload className="h-5 w-5" />
           <span>Upload PDF</span>
         </button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[700px] max-h-[90vh] overflow-y-auto bg-gray-800 border-gray-700">
+      <DialogContent className="sm:max-w-[800px] max-h-[90vh] overflow-y-auto bg-gray-800 border-gray-700">
         <DialogHeader>
-          <DialogTitle className="text-white">Criar Novo Procedimento</DialogTitle>
+          <DialogTitle className="text-white flex items-center">
+            <Upload className="h-5 w-5 mr-2 text-blue-400" />
+            Criar Novo Procedimento
+          </DialogTitle>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Title and Category */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="title" className="text-gray-300">
@@ -200,6 +204,7 @@ export default function CreateProcedureModal({ onProcedureCreated }: CreateProce
             </div>
           </div>
 
+          {/* Description */}
           <div className="space-y-2">
             <Label htmlFor="description" className="text-gray-300">
               Descrição *
@@ -215,6 +220,7 @@ export default function CreateProcedureModal({ onProcedureCreated }: CreateProce
             {errors.description && <p className="text-red-400 text-sm">{errors.description}</p>}
           </div>
 
+          {/* Priority, Department, and Version */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="space-y-2">
               <Label htmlFor="priority" className="text-gray-300">
@@ -269,7 +275,7 @@ export default function CreateProcedureModal({ onProcedureCreated }: CreateProce
           </div>
 
           {/* File Upload Section */}
-          <div className="space-y-4">
+          <div className="space-y-3">
             <div className="flex items-center justify-between">
               <Label className="text-gray-300">Documentos PDF</Label>
               <Button
@@ -330,7 +336,7 @@ export default function CreateProcedureModal({ onProcedureCreated }: CreateProce
             >
               Cancelar
             </Button>
-            <Button type="submit" disabled={isLoading} className="bg-green-600 hover:bg-green-700 text-white">
+            <Button type="submit" disabled={isLoading} className="bg-blue-600 hover:bg-blue-700 text-white">
               {isLoading ? "Criando..." : "Criar Procedimento"}
             </Button>
           </div>

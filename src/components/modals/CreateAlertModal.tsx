@@ -143,12 +143,12 @@ export default function CreateAlertModal({ onAlertCreated }: CreateAlertModalPro
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <button className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center space-x-2">
+        <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 flex items-center space-x-2">
           <Plus className="h-5 w-5" />
           <span>Novo Aviso</span>
         </button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[700px] max-h-[90vh] overflow-y-auto bg-gray-800 border-gray-700">
+      <DialogContent className="sm:max-w-[800px] max-h-[90vh] overflow-y-auto bg-gray-800 border-gray-700">
         <DialogHeader>
           <DialogTitle className="text-white flex items-center">
             <AlertTriangle className="h-5 w-5 mr-2 text-orange-400" />
@@ -157,6 +157,7 @@ export default function CreateAlertModal({ onAlertCreated }: CreateAlertModalPro
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Title and Category */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="title" className="text-gray-300">
@@ -192,6 +193,7 @@ export default function CreateAlertModal({ onAlertCreated }: CreateAlertModalPro
             </div>
           </div>
 
+          {/* Description */}
           <div className="space-y-2">
             <Label htmlFor="description" className="text-gray-300">
               Descrição *
@@ -207,6 +209,7 @@ export default function CreateAlertModal({ onAlertCreated }: CreateAlertModalPro
             {errors.description && <p className="text-red-400 text-sm">{errors.description}</p>}
           </div>
 
+          {/* Severity and Location */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="severity" className="text-gray-300">
@@ -241,6 +244,7 @@ export default function CreateAlertModal({ onAlertCreated }: CreateAlertModalPro
             </div>
           </div>
 
+          {/* Start and End Date */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="startDate" className="text-gray-300">
@@ -279,6 +283,7 @@ export default function CreateAlertModal({ onAlertCreated }: CreateAlertModalPro
             </div>
           </div>
 
+          {/* Affected Areas */}
           <div className="space-y-2">
             <Label htmlFor="affectedAreas" className="text-gray-300">
               Áreas Afetadas
@@ -292,6 +297,7 @@ export default function CreateAlertModal({ onAlertCreated }: CreateAlertModalPro
             />
           </div>
 
+          {/* Action Required */}
           <div className="space-y-2">
             <Label htmlFor="actionRequired" className="text-gray-300">
               Ação Necessária
@@ -306,6 +312,7 @@ export default function CreateAlertModal({ onAlertCreated }: CreateAlertModalPro
             />
           </div>
 
+          {/* Contact Information */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="contactPerson" className="text-gray-300">
@@ -371,7 +378,7 @@ export default function CreateAlertModal({ onAlertCreated }: CreateAlertModalPro
             >
               Cancelar
             </Button>
-            <Button type="submit" disabled={isLoading} className="bg-orange-600 hover:bg-orange-700 text-white">
+            <Button type="submit" disabled={isLoading} className="bg-blue-600 hover:bg-blue-700 text-white">
               {isLoading ? "Criando..." : "Criar Alerta"}
             </Button>
           </div>

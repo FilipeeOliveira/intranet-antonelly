@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
-import { Calendar, Plus } from "lucide-react"
+import { Calendar, Plus, Bell } from "lucide-react"
 
 interface CreateNotificationModalProps {
   onNotificationCreated?: (notification: any) => void
@@ -116,47 +116,36 @@ export default function CreateNotificationModal({ onNotificationCreated }: Creat
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <button className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center space-x-2">
+        <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 flex items-center space-x-2">
           <Plus className="h-5 w-5" />
           <span>Nova Notificação</span>
         </button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto bg-gray-800 border-gray-700">
+      <DialogContent className="sm:max-w-[800px] max-h-[90vh] overflow-y-auto bg-gray-800 border-gray-700">
         <DialogHeader>
-          <DialogTitle className="text-white">Criar Nova Notificação</DialogTitle>
+          <DialogTitle className="text-white flex items-center">
+            <Bell className="h-5 w-5 mr-2 text-blue-400" />
+            Criar Nova Notificação
+          </DialogTitle>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="space-y-2">
-            <Label htmlFor="title" className="text-gray-300">
-              Título da Notificação *
-            </Label>
-            <Input
-              id="title"
-              value={formData.title}
-              onChange={(e) => handleInputChange("title", e.target.value)}
-              className="bg-gray-700 border-gray-600 text-white"
-              placeholder="Ex: Manutenção programada do sistema"
-            />
-            {errors.title && <p className="text-red-400 text-sm">{errors.title}</p>}
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="message" className="text-gray-300">
-              Mensagem *
-            </Label>
-            <Textarea
-              id="message"
-              value={formData.message}
-              onChange={(e) => handleInputChange("message", e.target.value)}
-              className="bg-gray-700 border-gray-600 text-white"
-              placeholder="Digite a mensagem da notificação"
-              rows={4}
-            />
-            {errors.message && <p className="text-red-400 text-sm">{errors.message}</p>}
-          </div>
-
+          {/* Title and Priority */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="title" className="text-gray-300">
+                Título da Notificação *
+              </Label>
+              <Input
+                id="title"
+                value={formData.title}
+                onChange={(e) => handleInputChange("title", e.target.value)}
+                className="bg-gray-700 border-gray-600 text-white"
+                placeholder="Ex: Manutenção programada do sistema"
+              />
+              {errors.title && <p className="text-red-400 text-sm">{errors.title}</p>}
+            </div>
+
             <div className="space-y-2">
               <Label htmlFor="priority" className="text-gray-300">
                 Prioridade *
@@ -175,7 +164,10 @@ export default function CreateNotificationModal({ onNotificationCreated }: Creat
               </Select>
               {errors.priority && <p className="text-red-400 text-sm">{errors.priority}</p>}
             </div>
+          </div>
 
+          {/* Target Audience and Expiry Date */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="targetAudience" className="text-gray-300">
                 Público-alvo *
@@ -197,26 +189,43 @@ export default function CreateNotificationModal({ onNotificationCreated }: Creat
               </Select>
               {errors.targetAudience && <p className="text-red-400 text-sm">{errors.targetAudience}</p>}
             </div>
-          </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="expiryDate" className="text-gray-300">
-              Data de Expiração (Opcional)
-            </Label>
-            <div className="relative">
-              <Input
-                id="expiryDate"
-                type="date"
-                value={formData.expiryDate}
-                onChange={(e) => handleInputChange("expiryDate", e.target.value)}
-                min={getTomorrowDate()}
-                className="bg-gray-700 border-gray-600 text-white"
-              />
-              <Calendar className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
+            <div className="space-y-2">
+              <Label htmlFor="expiryDate" className="text-gray-300">
+                Data de Expiração (Opcional)
+              </Label>
+              <div className="relative">
+                <Input
+                  id="expiryDate"
+                  type="date"
+                  value={formData.expiryDate}
+                  onChange={(e) => handleInputChange("expiryDate", e.target.value)}
+                  min={getTomorrowDate()}
+                  className="bg-gray-700 border-gray-600 text-white"
+                />
+                <Calendar className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
+              </div>
+              <p className="text-xs text-gray-400">Se não definida, a notificação não expirará automaticamente</p>
             </div>
-            <p className="text-xs text-gray-400">Se não definida, a notificação não expirará automaticamente</p>
           </div>
 
+          {/* Message */}
+          <div className="space-y-2">
+            <Label htmlFor="message" className="text-gray-300">
+              Mensagem *
+            </Label>
+            <Textarea
+              id="message"
+              value={formData.message}
+              onChange={(e) => handleInputChange("message", e.target.value)}
+              className="bg-gray-700 border-gray-600 text-white"
+              placeholder="Digite a mensagem da notificação"
+              rows={4}
+            />
+            {errors.message && <p className="text-red-400 text-sm">{errors.message}</p>}
+          </div>
+
+          {/* Email Notification */}
           <div className="flex items-center space-x-2">
             <input
               type="checkbox"
@@ -230,22 +239,28 @@ export default function CreateNotificationModal({ onNotificationCreated }: Creat
             </Label>
           </div>
 
-          <div className="bg-gray-700/50 p-4 rounded-lg">
-            <h4 className="text-white font-medium mb-2">Pré-visualização</h4>
-            <div className="bg-gray-900 p-3 rounded border-l-4 border-blue-500">
-              <h5 className="text-white font-medium">{formData.title || "Título da notificação"}</h5>
-              <p className="text-gray-300 text-sm mt-1">{formData.message || "Mensagem da notificação"}</p>
-              {formData.priority && (
-                <span
-                  className={`inline-block mt-2 px-2 py-1 rounded text-xs font-medium ${
-                    priorities.find((p) => p.value === formData.priority)?.color || "text-gray-400"
-                  }`}
-                >
-                  {priorities.find((p) => p.value === formData.priority)?.label}
-                </span>
-              )}
+          {/* Preview */}
+          {(formData.title || formData.message) && (
+            <div className="bg-gray-700/50 p-4 rounded-lg">
+              <h4 className="text-white font-medium mb-3">Pré-visualização da Notificação</h4>
+              <div className="bg-gray-900 p-4 rounded-lg border-l-4 border-blue-500">
+                <div className="flex items-center mb-2">
+                  <Bell className="h-5 w-5 mr-2 text-blue-400" />
+                  <h5 className="text-white font-semibold">{formData.title || "Título da notificação"}</h5>
+                </div>
+                <p className="text-gray-200 text-sm mb-2">{formData.message || "Mensagem da notificação"}</p>
+                {formData.priority && (
+                  <span
+                    className={`inline-block mt-2 px-2 py-1 rounded text-xs font-medium ${
+                      priorities.find((p) => p.value === formData.priority)?.color || "text-gray-400"
+                    } bg-gray-800`}
+                  >
+                    {priorities.find((p) => p.value === formData.priority)?.label}
+                  </span>
+                )}
+              </div>
             </div>
-          </div>
+          )}
 
           <div className="flex justify-end space-x-3 pt-4">
             <Button

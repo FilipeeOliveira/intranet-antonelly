@@ -79,6 +79,12 @@ export default function IntranetPage() {
       permission: { resource: "procedures", action: "read" as const },
     },
     {
+      id: "reunioes" as Section,
+      icon: Calendar,
+      label: "Reuniões",
+      permission: null, // Everyone can access meetings
+    },
+    {
       id: "cadastros" as Section,
       icon: Plus,
       label: "Cadastros",
@@ -89,12 +95,6 @@ export default function IntranetPage() {
       icon: Users,
       label: "Usuários",
       permission: { resource: "users", action: "read" as const },
-    },
-    {
-      id: "reunioes" as Section,
-      icon: Calendar,
-      label: "Reuniões",
-      permission: null, // Everyone can access meetings
     },
   ]
 

@@ -1,5 +1,81 @@
 @import "tailwindcss";
 
+/* Remove all default focus outlines and borders */
+*:focus {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+*:focus-visible {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Remove button focus borders */
+button:focus,
+button:focus-visible,
+input:focus,
+input:focus-visible,
+textarea:focus,
+textarea:focus-visible,
+select:focus,
+select:focus-visible {
+  outline: none !important;
+  border-color: inherit !important;
+  box-shadow: none !important;
+}
+
+/* Cursor-based interaction feedback */
+button {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  cursor: pointer;
+  transform: translateY(-1px);
+}
+
+button:active {
+  cursor: pointer;
+  transform: translateY(0px);
+}
+
+input,
+textarea,
+select {
+  cursor: text;
+  transition: all 0.2s ease;
+}
+
+input:hover,
+textarea:hover {
+  cursor: text;
+}
+
+select {
+  cursor: pointer;
+}
+
+select:hover {
+  cursor: pointer;
+}
+
+/* Interactive elements cursor feedback */
+[role="button"],
+[tabindex]:not([tabindex="-1"]) {
+  cursor: pointer;
+}
+
+a,
+a:hover,
+a:focus {
+  cursor: pointer;
+  outline: none !important;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
@@ -16,17 +92,36 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: #6b7280;
+  cursor: pointer;
 }
 
-/* Focus styles for accessibility */
-*:focus {
-  outline: 2px solid #fbbf24;
-  outline-offset: 2px;
+/* Clickable elements cursor enhancement */
+.cursor-pointer {
+  cursor: pointer !important;
 }
 
-/* Smooth transitions */
+.cursor-text {
+  cursor: text !important;
+}
+
+.cursor-grab {
+  cursor: grab !important;
+}
+
+.cursor-grab:active {
+  cursor: grabbing !important;
+}
+
+/* Remove focus rings from Radix UI components */
+[data-radix-collection-item]:focus,
+[data-radix-collection-item]:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Smooth transitions for all interactive elements */
 * {
-  transition-property: color, background-color, border-color, transform, opacity;
+  transition-property: color, background-color, border-color, transform, opacity, box-shadow;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }

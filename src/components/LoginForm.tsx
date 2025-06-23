@@ -37,15 +37,15 @@ export default function LoginForm() {
           <div className="flex justify-center items-center mb-4">
             <Building2 className="h-12 w-12 text-amber-400" />
           </div>
-          <h1 className="text-3xl font-bold text-white">
+          <h1 className="text-3xl font-bold text-white cursor-default">
             Antonelly<span className="text-amber-400">Construções</span>
           </h1>
-          <p className="mt-2 text-gray-400">Sistema Interno - Faça seu login</p>
+          <p className="mt-2 text-gray-400 cursor-default">Sistema Interno - Faça seu login</p>
         </div>
 
         <form className="mt-8 space-y-6 bg-gray-800 p-8 rounded-xl border border-gray-700" onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">
+            <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1 cursor-default">
               Email
             </label>
             <input
@@ -54,13 +54,13 @@ export default function LoginForm() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-amber-400 focus:border-amber-400 transition-colors"
+              className="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-3 transition-all outline-none focus:outline-none cursor-text hover:shadow-md"
               placeholder="seu.email@antonelly.com"
             />
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-1">
+            <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-1 cursor-default">
               Senha
             </label>
             <div className="relative">
@@ -70,13 +70,13 @@ export default function LoginForm() {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-3 pr-10 focus:ring-2 focus:ring-amber-400 focus:border-amber-400 transition-colors"
+                className="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-3 pr-10 transition-all outline-none focus:outline-none cursor-text hover:shadow-md"
                 placeholder="Digite sua senha"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-300"
+                className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-300 cursor-pointer transition-colors outline-none focus:outline-none"
               >
                 {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
               </button>
@@ -84,13 +84,15 @@ export default function LoginForm() {
           </div>
 
           {error && (
-            <div className="bg-red-900/50 border border-red-500 text-red-200 px-4 py-3 rounded-lg">{error}</div>
+            <div className="bg-red-900/50 border border-red-500 text-red-200 px-4 py-3 rounded-lg cursor-default">
+              {error}
+            </div>
           )}
 
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full bg-amber-400 text-gray-800 font-bold py-3 px-4 rounded-lg hover:bg-amber-500 transition-colors focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-amber-400 text-gray-800 font-bold py-3 px-4 rounded-lg hover:bg-amber-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer hover:transform hover:scale-105 active:transform active:scale-95 outline-none focus:outline-none"
           >
             {isLoading ? "Entrando..." : "Entrar"}
           </button>
@@ -98,20 +100,20 @@ export default function LoginForm() {
 
         {/* Demo Users */}
         <div className="bg-gray-800 p-6 rounded-xl border border-gray-700">
-          <h3 className="text-lg font-semibold text-white mb-4">Usuários de Demonstração</h3>
+          <h3 className="text-lg font-semibold text-white mb-4 cursor-default">Usuários de Demonstração</h3>
           <div className="space-y-3">
             {demoUsers.map((user, index) => (
               <div key={index} className="flex justify-between items-center text-sm">
                 <div>
-                  <p className="text-gray-300">{user.email}</p>
-                  <p className="text-gray-500">{user.role}</p>
+                  <p className="text-gray-300 cursor-default">{user.email}</p>
+                  <p className="text-gray-500 cursor-default">{user.role}</p>
                 </div>
                 <button
                   onClick={() => {
                     setEmail(user.email)
                     setPassword(user.password)
                   }}
-                  className="text-amber-400 hover:text-amber-300 font-medium"
+                  className="text-amber-400 hover:text-amber-300 font-medium cursor-pointer transition-colors outline-none focus:outline-none"
                 >
                   Usar
                 </button>

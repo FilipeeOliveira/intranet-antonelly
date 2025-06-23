@@ -12,7 +12,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Upload, X, File } from "lucide-react"
 
 interface CreateProcedureModalProps {
-  onProcedureCreated?: (procedure: any) => void
+  onProcedureCreated?: (procedure: { title: string; description: string }) => void
 }
 
 export default function CreateProcedureModal({ onProcedureCreated }: CreateProcedureModalProps) {

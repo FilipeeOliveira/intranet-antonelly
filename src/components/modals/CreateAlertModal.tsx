@@ -12,7 +12,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { AlertTriangle, Clock, Plus } from "lucide-react"
 
 interface CreateAlertModalProps {
-  onAlertCreated?: (alert: any) => void
+  onAlertCreated?: (alert: { title: string; description: string }) => void
 }
 
 export default function CreateAlertModal({ onAlertCreated }: CreateAlertModalProps) {

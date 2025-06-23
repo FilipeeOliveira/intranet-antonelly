@@ -12,7 +12,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Calendar, Plus, Bell } from "lucide-react"
 
 interface CreateNotificationModalProps {
-  onNotificationCreated?: (notification: any) => void
+  onNotificationCreated?: (notification: { title: string }) => void
 }
 
 export default function CreateNotificationModal({ onNotificationCreated }: CreateNotificationModalProps) {

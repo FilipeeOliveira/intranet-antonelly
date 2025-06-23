@@ -12,7 +12,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Calendar, Clock, Plus, MapPin, Video, X, User, Building } from "lucide-react"
 
 interface CreateMeetingModalProps {
-  onMeetingCreated?: (meeting: any) => void
+  onMeetingCreated?: (meeting: { title: string; description: string }) => void
 }
 
 interface Participant {

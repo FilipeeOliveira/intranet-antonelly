@@ -14,7 +14,7 @@ import { useAuth } from "@/contexts/AuthContext"
 import type { UserRole } from "@/types/auth"
 
 interface CreateUserModalProps {
-  onUserCreated?: (user: any) => void
+  onUserCreated?: (user: { name: string }) => void
 }
 
 export default function CreateUserModal({ onUserCreated }: CreateUserModalProps) {
